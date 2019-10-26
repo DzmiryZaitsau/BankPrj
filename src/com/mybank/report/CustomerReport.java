@@ -5,29 +5,22 @@ import com.mybank.domain.*;
 public class CustomerReport {
     
     private Bank bank;
-    
+
     public CustomerReport() {
     }
     
-    public Bank getBank() {
-        return bank;
-    }
-    
-    public void setBank(Bank bank) {
-        this.bank = bank;
-    }
-    
+
     public void generateReport() {
         
         // Print report header
-        System.out.println("\t\t\tCUSTOMERS REPORT");
-        System.out.println("\t\t\t================");
+        System.out.println("CUSTOMERS REPORT");
+        System.out.println("================");
         
         // For each customer...
         for ( int cust_idx = 0;
-        cust_idx < bank.getNumOfCustomers();
+        cust_idx < Bank.getNumOfCustomers();
         cust_idx++ ) {
-            Customer customer = bank.getCustomer(cust_idx);
+            Customer customer = Bank.getCustomer(cust_idx);
             
             // Print the customer's name
             System.out.println();
