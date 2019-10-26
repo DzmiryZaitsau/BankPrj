@@ -7,7 +7,7 @@ import com.mybank.batch.*;
 public class TestBatch {
     
     public static void main(String[] args) {
-        Bank     bank = new Bank();
+        Bank     bank = Bank.getInstance();
         initializeCustomers(bank);
         
         // run the customer report
