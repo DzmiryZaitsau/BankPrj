@@ -21,9 +21,9 @@ public class AccumulateSavingsBatch {
         
         // For each customer...
         for ( int cust_idx = 0;
-        cust_idx < bank.getNumOfCustomers();
+        cust_idx < Bank.getNumOfCustomers();
         cust_idx++ ) {
-            Customer customer = bank.getCustomer(cust_idx);
+            Customer customer = Bank.getCustomer(cust_idx);
             
             // For each account for this customer...
             for ( int acct_idx = 0;
