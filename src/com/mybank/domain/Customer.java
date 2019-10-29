@@ -1,5 +1,7 @@
 package com.mybank.domain;
 
+import com.google.inject.Inject;
+
 public class Customer {
 
   private String firstName;
@@ -9,10 +11,10 @@ public class Customer {
   private Account[] accounts;
   private int numberOfAccounts;
 
+  @Inject
   public Customer(String f, String l) {
     firstName = f;
     lastName = l;
-    // initialize accounts array
     accounts = new Account[10];
     numberOfAccounts = 0;
   }

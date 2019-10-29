@@ -1,5 +1,7 @@
 package com.mybank.test;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import com.mybank.domain.*;
 import com.mybank.report.*;
 
@@ -15,7 +17,8 @@ public class TestReport {
     }
 
     private static void initializeCustomers() {
-        Customer customer;
+        Injector injector = Guice.createInjector(new CustomerModule());
+        Customer customer = injector.getInstance(Customer.class);
 
 
         // Create several customers and their accounts
