@@ -1,5 +1,7 @@
 package com.mybank.test;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import com.mybank.domain.*;
 import com.mybank.report.*;
 import com.mybank.batch.*;
@@ -7,16 +9,17 @@ import com.mybank.batch.*;
 public class TestBatch {
     
     public static void main(String[] args) {
+
+
+
         Bank     bank = Bank.getInstance();
         initializeCustomers(bank);
+
+        Injector injector = Guice.createInjector(new MyModule());
+        CustomerReport customerReport = injector.getInstance(CustomerReport.class);
+        customerReport.generateReport();
         
-        // run the customer report
-        CustomerReport report = new CustomerReport();
-        //report.setBank(bank);
-        report.generateReport();
-        
-        // run savings accumulation batch job
-        AccumulateSavingsBatch job = new AccumulateSavingsBatch();
+        AccumulateSavingsBatch job = injector.getInstance(AccumulateSavingsBatch.class);
         job.setBank(bank);
         job.doBatch();
         System.out.println();
@@ -24,31 +27,45 @@ public class TestBatch {
         System.out.println();
         
         // run the customer report again
-        report.generateReport();
+        customerReport.generateReport();
     }
     
     private static void initializeCustomers(Bank bank) {
+        Injector injector = Guice.createInjector(new MyModule());
+        SavingsAccount savingsAccount = injector.getInstance(SavingsAccount.class);
+        CheckingAccount checkingAccount = injector.getInstance(CheckingAccount.class);
+
         Customer customer;
         
         // Create several customers and their accounts
         Bank.addCustomer("Jane", "Simms");
         customer = Bank.getCustomer(0);
-        customer.addAccount(new SavingsAccount(500.00, 0.03));
-        customer.addAccount(new CheckingAccount(200.00, 400.00));
+        customer.addAccount(savingsAccount);
+        savingsAccount.setBalance(500);
+        savingsAccount.setInterestRate(0.05);
+        customer.addAccount(checkingAccount);
+        checkingAccount.setBalance(200);
+        checkingAccount.setOverdraftAmount(400);
         
         Bank.addCustomer("Owen", "Bryant");
         customer = Bank.getCustomer(1);
-        customer.addAccount(new CheckingAccount(200.00));
+        customer.addAccount(checkingAccount);
+        checkingAccount.setBalance(200);
         
         Bank.addCustomer("Tim", "Soley");
         customer = Bank.getCustomer(2);
-        customer.addAccount(new SavingsAccount(1500.00, 0.075));
-        customer.addAccount(new CheckingAccount(200.00));
+        customer.addAccount(savingsAccount);
+        savingsAccount.setBalance(1500);
+        savingsAccount.setInterestRate(0.05);
+        customer.addAccount(checkingAccount);
+        checkingAccount.setBalance(200);
         
         Bank.addCustomer("Maria", "Soley");
         customer = Bank.getCustomer(3);
         // Maria and Tim have a shared checking account
         customer.addAccount(Bank.getCustomer(2).getAccount(1));
-        customer.addAccount(new SavingsAccount(150.00, 0.05));
+        customer.addAccount(savingsAccount);
+        savingsAccount.setBalance(150);
+        savingsAccount.setInterestRate(0.05);
     }
 }

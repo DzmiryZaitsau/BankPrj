@@ -1,11 +1,11 @@
 package com.mybank.batch;
 
+import com.google.inject.Inject;
 import com.mybank.domain.*;
 
 public class AccumulateSavingsBatch {
     
     private Bank bank;
-    
     public AccumulateSavingsBatch() {
     }
     

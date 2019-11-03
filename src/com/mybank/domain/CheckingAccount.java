@@ -1,9 +1,10 @@
 package com.mybank.domain;
 
+
 public class CheckingAccount extends Account {
     
     private double overdraftAmount;
-    
+    public CheckingAccount() {}
     public CheckingAccount(double initBalance, double overdraftAmount) {
         super(initBalance);
         this.overdraftAmount = overdraftAmount;
@@ -11,7 +12,15 @@ public class CheckingAccount extends Account {
     public CheckingAccount(double initBalance) {
         this(initBalance, 0.0);
     }
-    
+
+    public double getOverdraftAmount() {
+        return overdraftAmount;
+    }
+
+    public void setOverdraftAmount(double overdraftAmount) {
+        this.overdraftAmount = overdraftAmount;
+    }
+
     public boolean withdraw(double amount) {
         boolean result = true;
         

@@ -1,10 +1,11 @@
 package com.mybank.report;
 
+import com.google.inject.Inject;
 import com.mybank.domain.*;
 
 public class CustomerReport {
 
-
+    @Inject
     public CustomerReport() {
     }
 

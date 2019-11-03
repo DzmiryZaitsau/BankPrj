@@ -10,8 +10,9 @@ public class Customer {
 
   private Account[] accounts;
   private int numberOfAccounts;
+  public Customer() {}
 
-  @Inject
+
   public Customer(String f, String l) {
     firstName = f;
     lastName = l;
